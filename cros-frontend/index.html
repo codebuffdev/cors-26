@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CORS Test</title>
+  </head>
+  <body>
+    <h1>CORS Test</h1>
+
+    <button onclick="callApi()">Make GET request</button>
+    <button onclick="callApiPost()">Make POST request</button>
+
+    <script>
+      async function callApi() {
+        console.log("btn clicked");
+        const response = await fetch("http://localhost:8080/api/hello");
+        const jsonData = await response.text();
+        console.log(jsonData);
+      }
+
+      async function callApiPost() {
+        console.log("Making request");
+        const response = await fetch("http://localhost:8080/api/name", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Debug": "123",
+          },
+          body: JSON.stringify({
+            name: "John Doe",
+          }),
+        });
+
+        const jsonData = await response.json();
+        console.log(jsonData);
+        console.log(response);
+      }
+    </script>
+  </body>
+</html>
